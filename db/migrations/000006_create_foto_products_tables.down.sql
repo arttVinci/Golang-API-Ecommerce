@@ -1,0 +1,1 @@
+drop table foto_products;

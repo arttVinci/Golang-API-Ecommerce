@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  mysql_db:
+    image: mysql:8.0
+    container_name: ecommerce_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: api-ecommerce-project
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - ecommerce_net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  migration:
+    image: migrate/migrate
+    container_name: ecommerce_migration
+    volumes:
+      - ./db/migrations:/migrations
+    command:
+      - -path=/migrations
+      - -database=mysql://root:secret@tcp(mysql_db:3306)/api-ecommerce-project
+      - up
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    networks:
+      - ecommerce_net
+
+  app:
+    build: .
+    container_name: ecommerce_api
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      migration:
+        condition: service_completed_successfully
+    environment:
+      DATABASE_HOST: mysql_db
+      DATABASE_PORT: 3306
+      DATABASE_PASSWORD: secret
+      DATABASE_NAME: api-ecommerce-project
+      WEB_PORT: 3000
+      JWT_SECRET: tokenjwtapiecommerce
+    networks:
+      - ecommerce_net
+
+volumes:
+  mysql_data:
+
+networks:
+  ecommerce_net:
+    driver: bridge

@@ -1,0 +1,27 @@
+{
+  "app": {
+    "name": "api-ecommerce-project"
+  },
+  "web": {
+    "prefork": false,
+    "port": 3000
+  },
+  "log": {
+    "level": 6
+  },
+  "database": {
+    "username": "root",
+    "password": "root",
+    "host": "mysql_db",
+    "port": 3306,
+    "name": "api-ecommerce-project",
+    "pool": {
+      "idle": 10,
+      "max": 100,
+      "lifetime": 300
+    }
+  },
+  "jwt": {
+    "secret": "123456789abcdefghijklmnopqrstuvwxyz"
+  }
+}
