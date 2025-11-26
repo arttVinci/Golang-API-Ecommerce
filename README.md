@@ -75,7 +75,7 @@ docker-compose up --build
 
 API Base URL → `http://localhost:3000/api/ecommerce`
 
-# 🧪 API Endpoints (UPDATED SESUAI ROUTE)
+# 🧪 API Endpoints
 
 Seluruh endpoint berada di prefix:
 
