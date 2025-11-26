@@ -4,7 +4,7 @@ A robust and production-ready RESTful API for an E-Commerce platform, built with
 
 ## 🛠️ Tech Stack
 
-- **Language:** Golang 1.22+
+- **Language:** Golang 1.25
 - **Framework:** [GoFiber](https://gofiber.io/) (Fast HTTP Framework)
 - **Database:** MySQL 8.0
 - **ORM:** [GORM](https://gorm.io/)
